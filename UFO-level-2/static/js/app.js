@@ -19,7 +19,12 @@ for (index = 0; index < data.length; index++) {
 }
 element.innerHTML = tableContent;
 
-d3.select("#filter-btn").on("click", function() {
+const form = document.getElementById("form");
+form.addEventListener('submit', runFilter);
+
+function runFilter(event) {
+  event.preventDefault();
+
   var dateInput = d3.select("#datetime").property("value");
   var cityInput = d3.select("#city").property("value");
   var stateInput = d3.select("#state").property("value");
@@ -49,4 +54,4 @@ d3.select("#filter-btn").on("click", function() {
     }
   }
   element.innerHTML = tableContent;
-});
+};

@@ -3,8 +3,10 @@ var tableData = data;
 
 // YOUR CODE HERE!
 
-const element = document.querySelector("tbody");
+// Grab reference to the table body
+var element = d3.select("tbody");
 
+// Generate table content from data
 var tableContent = "";
 for (index = 0; index < data.length; index++) {
     tableContent += "<tr>" + 
@@ -17,19 +19,25 @@ for (index = 0; index < data.length; index++) {
     "<td>" + data[index]['comments'] + "</td>" + 
     "</tr>";
 }
-element.innerHTML = tableContent;
+element.html(tableContent);
 
-var button = d3.select("#filter-btn");
+// Grab reference to form HTML
+// No need to declare var button = d3.select("#filter-btn"); as in HTML button is type="submit" (changed from type="button")
 var form = d3.select("#form");
 
-button.on("click", runFilter);
+// Create event handler for clicking the button or pressing the enter key
 form.on("submit", runFilter);
 
+// Create the function to run the filter
 function runFilter() {
+
+  // Prevent the page from refreshing
   d3.event.preventDefault();
   
+  // Select the input data
   var dateInput = d3.select("#datetime").property("value");
 
+  // Generate content for filtered table
   var tableContent = "";
   for (index = 0; index < data.length; index++) {
     if (new Date(dateInput).getTime() === new Date(data[index]['datetime']).getTime()) {
@@ -44,5 +52,5 @@ function runFilter() {
       "</tr>";
     }
   }
-  element.innerHTML = tableContent;
+  element.html(tableContent);
 };
